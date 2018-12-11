@@ -1,0 +1,12 @@
+package main
+
+import ("fmt" "math")
+
+
+func sqrt(n float64) float64 {
+    return math.Sqrt(n)
+}
+
+func main() {
+    fmt.Println("The square root of 4 is ", sqrt(4))
+}
