@@ -92,6 +92,9 @@ func main() {
 	Articles = []Article{
 		Article{Id: "1", Title: "title1", Desc: "desc1", Content: "content1"},
 		Article{Id: "2", Title: "title2", Desc: "desc2", Content: "content2"},
+		Article{Id: "3", Title: "title2", Desc: "desc2", Content: "content2"},
+		Article{Id: "4", Title: "title2", Desc: "desc2", Content: "content2"},
+		Article{Id: "5", Title: "title2", Desc: "desc2", Content: "content2"},
 	}
 	handleRequests()
 }
