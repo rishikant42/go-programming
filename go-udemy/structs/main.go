@@ -31,5 +31,7 @@ func main() {
 		},
 	}
 	jim.updateName("Jimmy")
-	jim.print()
+	s1 := "test sprintf"
+	s2 := fmt.Sprintf("Hello:%s", s1)
+	fmt.Printf(s2)
 }
