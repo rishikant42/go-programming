@@ -142,13 +142,23 @@ func main() {
 	`)
 
 	templateMsg := TemplateMessage{}
+	mediaFileMsg := MediaFile{}
+	messageBaseMsg := MessageBase{}
 
 	errNew := json.Unmarshal(msg, &templateMsg)
+	errNew = json.Unmarshal(msg, &mediaFileMsg)
+	errNew = json.Unmarshal(msg, &messageBaseMsg)
 
 	if errNew != nil {
 		fmt.Println("Error occured:", errNew)
 	}
 
 	hc, _ := json.Marshal(templateMsg)
+	mfg, _ := json.Marshal(mediaFileMsg)
+	mbm, _ := json.Marshal(messageBaseMsg)
 	fmt.Println(string(hc))
+	fmt.Printf("\n\n")
+	fmt.Println("Hello world")
+	fmt.Println(string(mfg))
+	fmt.Println(string(mbm))
 }
