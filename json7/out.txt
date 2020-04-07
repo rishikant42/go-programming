@@ -1,0 +1,52 @@
+{
+   "type" : "template",
+   "recipient_type" : "individual",
+   "template" : {
+      "name" : "flight_confirmation",
+      "components" : [
+         {
+            "type" : "header",
+            "parameters" : [
+               {
+                  "type" : "document",
+                  "document" : {
+                     "provider" : {},
+                     "filename" : "MRRATH-CGK-KUL.pdf",
+                     "link" : "link-to-your-document"
+                  }
+               }
+            ]
+         },
+         {
+            "parameters" : [
+               {
+                  "text" : "CGK (Jakarta)",
+                  "type" : "text"
+               },
+               {
+                  "text" : "KUL (Kuala Lumpur)",
+                  "type" : "text"
+               },
+               {
+                  "date_time" : {
+                     "day_of_month" : "20",
+                     "year" : "2019",
+                     "minute" : "10",
+                     "month" : "9",
+                     "fallback_value" : "20th April 2019, 12:20pm",
+                     "hour" : "12"
+                  },
+                  "type" : "date_time"
+               }
+            ],
+            "type" : "body"
+         }
+      ],
+      "language" : {
+         "policy" : "deterministic",
+         "code" : "en"
+      },
+      "namespace" : "88b39973_f0d5_54e1_29cf_e80f1e3da4f2"
+   },
+   "to" : "your-test-recipient-wa-id"
+}

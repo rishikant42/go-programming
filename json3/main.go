@@ -33,7 +33,7 @@ type TemplateMessage struct {
 			Code   string `json:"code,omitempty"`
 		} `json:"language,omitempty"`
 
-		Name string `json:"names,omitempty"`
+		Name string `json:"name,omitempty"`
 
 		Components []struct {
 			Type string `json:"type,omitempty"`
@@ -69,96 +69,47 @@ func main() {
 	msg := []byte(`
 
 {
-	"to": "recipient_wa_id",
-	"ttl": "P4D",
-	"type": "template",
-	"template": {
-		"namespace": "your-namespace",
-		"language": {
-			"policy": "deterministic",
-			"code": "your-language-and-locale-code"
-		},
-		"name": "your-template-name",
-		"components": [{
-				"type": "header",
-				"parameters": [{
-						"type": "header",
-						"text": "replacement-text"
-					},
-					{
-						"type": "document",
-						"document": {
-							"link": "the-provider-name/protocol://the-url",
-							"provider": {
-								"name": "provider-name"
-							},
-							"filename": "your-document-filename"
-						}
-					},
-					{
-						"type": "image",
-						"document": {
-							"link": "the-provider-name/protocol://the-url",
-							"provider": {
-								"name": "provider-name"
-							},
-							"filename": "your-document-filename"
-						}
-					}
-				]
-			},
-			{
-				"type": "body",
-				"parameters": [{
-						"type": "text",
-						"text": "replacement_text"
-					},
-					{
-						"type": "currency",
-						"currency": {
-							"fallback_value": "$100.99",
-							"code": "USD",
-							"amount_1000": "100990"
-						}
-					},
-					{
-						"type": "date_time",
-						"date_time": {
-							"fallback_value": "February 25, 1977",
-							"day_of_week": "5",
-							"day_of_month": "25",
-							"year": "1977",
-							"month": "2",
-							"hour": "15",
-							"minute": "33",
-							"timestamp": "1485470276"
-						}
-					}
-				]
-			}
-		]
-	}
-}
+   "account_uid" : "accounYUD",
+   "template" : {
+      "namespace" : "c.templated_text.Namespace",
+      "name" : "c.templated_text.Name",
+      "language" : {
+         "code" : "c.templated_text.LanguageCode",
+         "policy" : "deterministic"
+      },
+      "components" : [
+         {
+            "parameters" : [
+               {
+                  "type" : "text",
+                  "text" : "param1"
+               },
+               {
+                  "type" : "text",
+                  "text" : "param2"
+               }
+            ],
+            "type" : "body"
+         }
+      ]
+   },
+   "uid" : "UID",
+   "to" : "TO",
+   "from" : "FROM",
+   "account_token" : "AccountTOKEN",
+   "attachments" : [
+      "image",
+      "video"
+   ],
+   "type" : "template",
+   "queue_type" : "wa"
+ }
+
 	`)
 
 	templateMsg := TemplateMessage{}
-	mediaFileMsg := MediaFile{}
-	messageBaseMsg := MessageBase{}
 
-	errNew := json.Unmarshal(msg, &templateMsg)
-	errNew = json.Unmarshal(msg, &mediaFileMsg)
-	errNew = json.Unmarshal(msg, &messageBaseMsg)
-
-	if errNew != nil {
-		fmt.Println("Error occured:", errNew)
-	}
-
+	json.Unmarshal(msg, &templateMsg)
 	hc, _ := json.Marshal(templateMsg)
-	mfg, _ := json.Marshal(mediaFileMsg)
-	mbm, _ := json.Marshal(messageBaseMsg)
 	fmt.Println(string(hc))
-	fmt.Printf("\n\n")
-	fmt.Println("Hello world")
-	fmt.Println(string(mfg))
-	fmt.Println(string(mbm))
 }
