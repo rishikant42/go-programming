@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/karixtech/go-whatsapp/whatsapp"
 )
 
 type waJobBase struct {
@@ -79,68 +77,23 @@ type TemplateMessage struct {
 	} `json:"template,omitempty"`
 }
 
-type waMediaTemplateJob struct {
-	waJobBase
-	whatsapp.TemplateMessage
-	Attachments []string `json:"attachments,omitempty"`
-	MediaURL    string   `json:"media_url"`
-}
-
 func main() {
-	msg := []byte(`
 
-{
-   "type" : "media_template",
-   "account_token" : "AccountTOKEN",
-   "template" : {
-      "language" : {
-         "code" : "c.templated_text.LanguageCode",
-         "policy" : "deterministic"
-      },
-      "components" : [
-         {
-            "parameters" : [
-               {
-                  "type" : "text",
-                  "text" : "param1"
-               },
-               {
-                  "type" : "text",
-                  "text" : "param2"
-               }
-            ],
-            "type" : "body"
-         }
-      ],
-      "namespace" : "c.templated_text.Namespace",
-      "name" : "c.templated_text.Name"
-   },
-   "queue_type" : "wa",
-   "from" : "FROM",
-   "media_url" : "www.media-url.com",
-   "account_uid" : "accounYUD",
-   "uid" : "UID",
-   "to" : "TO",
-   "attachments" : [
-      "image",
-      "video"
-   ]
-}
-
-	`)
-
-	templateMsg := TemplateMessage{}
-	mediaFileMsg := MediaFile{}
-	messageBaseMsg := MessageBase{}
-
-	errNew := json.Unmarshal(msg, &templateMsg)
-	errNew = json.Unmarshal(msg, &mediaFileMsg)
-	errNew = json.Unmarshal(msg, &messageBaseMsg)
-
-	if errNew != nil {
-		fmt.Println("Error occured:", errNew)
+	mf := &MediaFile{
+		Link: "www.Link.com",
+	}
+	tp := TemplateParameter{
+		Type:     "header",
+		Document: mf,
 	}
 
+	tc := TemplateComponent{
+		Type: "TemplateComponent",
+	}
+	tc.Parameters = append(tc.Parameters, &tp)
+
+	templateMsg := TemplateMessage{}
+	templateMsg.Template.Components = append(templateMsg.Template.Components, &tc)
 	hc, _ := json.Marshal(templateMsg)
 	// mfg, _ := json.Marshal(mediaFileMsg)
 	// mbm, _ := json.Marshal(messageBaseMsg)
